@@ -1,0 +1,83 @@
+ import javafx.application.Application;
+
+import javafx.scene.Scene;
+
+import javafx.scene.control.*;
+
+import javafx.scene.layout.*;
+
+import javafx.stage.Stage;
+
+public class BankBalanceApp extends Application {
+
+    private BankAccount account = new BankAccount(); // Create a BankAccount instance
+
+    public static void main(String[] args) {
+
+        launch(args);
+
+    }
+
+    @Override
+
+    public void start(Stage primaryStage) {
+
+        primaryStage.setTitle("Bank Balance App");
+
+        // Create UI components
+
+        Label balanceLabel = new Label("Balance: $0.00");
+
+        TextField amountField = new TextField();
+
+        Button depositButton = new Button("Deposit");
+
+        Button withdrawButton = new Button("Withdraw");
+
+        // Handle deposit button click
+
+        depositButton.setOnAction(e -> {
+
+            double amount = Double.parseDouble(amountField.getText());
+
+            account.deposit(amount);
+
+            balanceLabel.setText("Balance: $" + account.getBalance());
+
+            amountField.clear();
+
+        });
+
+        // Handle withdraw button click
+
+        withdrawButton.setOnAction(e -> {
+
+            double amount = Double.parseDouble(amountField.getText());
+
+            account.withdraw(amount);
+
+            balanceLabel.setText("Balance: $" + account.getBalance());
+
+            amountField.clear();
+
+        });
+
+        // Create a VBox layout to arrange components
+
+        VBox vbox = new VBox(10);
+
+        vbox.getChildren().addAll(balanceLabel, amountField, depositButton, withdrawButton);
+
+        // Create a scene and set it in the stage
+
+        Scene scene = new Scene(vbox, 300, 200);
+
+        primaryStage.setScene(scene);
+
+        // Show the stage
+
+        primaryStage.show();
+
+    }
+
+}
